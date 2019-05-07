@@ -1,4 +1,6 @@
-[serial, time, signal] = textread('256_t.txt', '%f %f %f');
+close all;
+clear all;
+[serial, time, signal] = textread('1024_t.txt', '%f %f %f');
 
 N = size(time, 1);
 
@@ -10,7 +12,7 @@ Pyy = signal_freq .* conj(signal_freq) ./ N;
 f_max = 1 ./ (2.*(time(2) - time(1)));
 fs = 2 .* f_max;
 
-Pyy_to_plot = 0.5 .* db(Pyy(1:N/2 + 1)./max(Pyy(1:N/2 + 1)));
+Pyy_to_plot = 0.5 .* db(Pyy(3:N/2 + 1)./max(Pyy(3:N/2 + 1)));
 
 frequencies = fs .* (0:N/2) ./ N;
 
@@ -22,7 +24,7 @@ grid on;
 %print(['signal_1_Q1',  num2str(N)], '-depsc');
 
 figure(2);
-plot(frequencies(2:end), Pyy_to_plot(2:end), 'LineWidth', 2);
+plot(frequencies(3:end), Pyy_to_plot(1:end), 'LineWidth', 2);
 %ylim([0 80]);
 
 xlabel('Frequencies(GHz)', 'FontSize', 12, 'FontWeight', 'bold');

@@ -92,9 +92,9 @@ grid on;
 figure(5);
 
 del_phi = phi_2(1:N2/2+1) - phi_1(1:N1/2+1);
-del_t = (del_phi) ./ (2 * pi * frequencies_1.');
+del_t = phi_2(1:N2/2+1) - phi_1(1:N1/2+1) ./ frequencies_1;
 
-plot(frequencies_1(3:end), del_t(3:end), 'LineWidth', 2);
+plot(frequencies_1, del_t, 'LineWidth');
 
 % plot(time_1, Correlation_12, 'LineWidth', 2);
 % xlabel('Time(nS)', 'FontSize', 12, 'FontWeight', 'bold');
