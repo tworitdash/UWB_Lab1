@@ -65,16 +65,12 @@ plot(frequencies_2(1:end), phi_2(1:N2/2+1), 'LineWidth', 2);
 hold on;
 plot(frequencies_2(1:end), phi_2(1:N2/2+1) - phi_1(1:N1/2+1), 'LineWidth', 2);
 
-
-
 xlim([0 1.2])
-
-
-%ylim([0 80]);
 
 xlabel('Frequencies(GHz)', 'FontSize', 12, 'FontWeight', 'bold');
 ylabel('\Delta\phi_1, \Delta\phi_2 [rad]', 'FontSize', 12, 'FontWeight', 'bold');
 title('Mono Pulse phase in freq domain', 'FontSize', 12, 'FontWeight', 'bold');
+legend({'Phase_1', 'Phase_2', '\delta\phi'}, 'FontSize', 12, 'FontWeight', 'bold');
 grid on;
 
 
@@ -83,18 +79,34 @@ plot(time_1, signal_1, 'LineWidth', 2);
 hold on;
 plot(time_2, signal_2, 'LineWidth', 2);
 
+xlabel('time(nS)', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Signal(mV)', 'FontSize', 12, 'FontWeight', 'bold');
+title('Mono Cycle signal in time domain', 'FontSize', 12, 'FontWeight', 'bold');
+legend({'without extra cable', 'with extra cable'}, 'FontSize', 12, 'FontWeight', 'bold');
+grid on;
+print('Phase_12', '')
+
 figure(4);
 samp_t = time_1(2) - time_1(1);
 
+xlabel('time(nS)', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Correlation(Signal_1, Signal_2)', 'FontSize', 12, 'FontWeight', 'bold');
+title('Correlation of pulses with and without extra cable', 'FontSize', 12, 'FontWeight', 'bold');
+%legend({'without extra cable', 'with extra cable'}, 'FontSize', 12, 'FontWeight', 'bold');
+
+
 plot(lags.*samp_t, Correlation_12, 'LineWidth', 2);
 grid on;
+print('Corr', '-depsc');
 
-figure(5);
 
-del_phi = phi_2(1:N2/2+1) - phi_1(1:N1/2+1);
-del_t = phi_2(1:N2/2+1) - phi_1(1:N1/2+1) ./ frequencies_1;
 
-plot(frequencies_1, del_t, 'LineWidth');
+% figure(5);
+% 
+% del_phi = phi_2(1:N2/2+1) - phi_1(1:N1/2+1);
+% del_t = (del_phi) ./ (2 * pi * frequencies_1.');
+
+%plot(frequencies_1(3:end), del_t(3:end), 'LineWidth', 2);
 
 % plot(time_1, Correlation_12, 'LineWidth', 2);
 % xlabel('Time(nS)', 'FontSize', 12, 'FontWeight', 'bold');
