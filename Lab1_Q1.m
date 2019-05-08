@@ -1,6 +1,6 @@
 close all;
 clear all;
-[serial, time, signal] = textread('1024_t.txt', '%f %f %f');
+[serial, time, signal] = textread('128_t.txt', '%f %f %f');
 
 N = size(time, 1);
 
@@ -54,6 +54,6 @@ for n = 1:N-1
     Power_avg_time_m_2(n) = signal(m).^2 .* time_d_avg;
 end
 
-Power_avg_time_1 = sum(Power_avg_time_m.') * 10^(-6) ./ 50 * 10 * 10^6; %P_{avg} with jitter
-Power_avg_time_2 = sum(Power_avg_time_m_2.') * 10^(-6) ./ 50 * 10 * 10^6; %P{avg} without jitter
+Power_avg_time_1 = sum(Power_avg_time_m.') * 10^(-6) * 10^(-9) ./(2 * 50) * 10 * 10^6; %P_{avg} with jitter
+Power_avg_time_2 = sum(Power_avg_time_m_2.') * 10^(-6) * 10^(-9) ./ (2 * 50) * 10 * 10^6; %P{avg} without jitter
 

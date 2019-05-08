@@ -1,16 +1,16 @@
 close all;
 clear all;
-[serial, time, signal] = textread('128_t.txt', '%f %f %f');
+[serial, time, signal] = textread('1024_t.txt', '%f %f %f');
 
 N = size(time, 1);
 
 hann_ = hamming(N);
 signal_hann = hann_ .* signal;
-time_i = zeros(1, (N - 3));
-for i = 3:N - 1
+time_i = zeros(1, (N));
+for i = 1:N-1
     time_i(i) = time(i + 1) - time(i);
 end
-time_d_avg = sum(time_i.')./(N - 3);
+time_d_avg = sum(time_i.')./(N);
 
 
 signal_freq = fft(detrend(signal_hann), N);
@@ -42,28 +42,6 @@ grid on;
 %print(['signal_1_Q1_f', num2str(N)], '-depsc');
 
 
-% Power calculations:
-
-%Average sample time and Power:
-
-Power_i = zeros(1, (N/2 + 1 - 3));
-Power_j= zeros(1, (N/2 + 1 - 3));
-frequencies_i = zeros(1, (N/2 + 1 - 3));
-
-for k = 3:N/2
-  frequencies_i(k) = frequencies(k + 1) - frequencies(k); 
-end
-
-frequencies_avg = sum(frequencies_i.')./ (N/2 + 1 - 3);
-
-% Average Power followed by the integration:
-for j = 3:N/2
-    Power_j(j) = frequencies_avg .* Pyy(j) .* N;
-end
-
-V2_avg_j = sum(Power_j.')./ (N/2 + 1 - 3);
-
-Power_avg_2 = 1/2 .* V2_avg_j.* 1/50 .* 10 * 10^6 * 10^(-6);
 
 Power_avg_time_m = zeros(1, N);
 Power_avg_time_m_2 = zeros(1, N);
@@ -76,7 +54,6 @@ for n = 1:N-1
     Power_avg_time_m_2(n) = signal(m).^2 .* time_d_avg;
 end
 
-Power_avg_time_1 = sum(Power_avg_time_m.') * 10^(-6) ./ 50 * 10 * 10^6;
-Power_avg_time_2 = sum(Power_avg_time_m_2.') * 10^(-6) ./ 50 * 10 * 10^6; 
-
+Power_avg_time_1 = sum(Power_avg_time_m.') * 10^(-6) * 10^(-9) ./(2 * 50) * 10 * 10^6; %P_{avg} with jitter
+Power_avg_time_2 = sum(Power_avg_time_m_2.') * 10^(-6) * 10^(-9) ./ (2 * 50) * 10 * 10^6; %P{avg} without jitter
 

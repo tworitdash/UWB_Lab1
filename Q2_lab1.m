@@ -134,8 +134,8 @@ for n = 1:N1-1
     Power_avg_time_m_1_2(n) = signal_1(n).^2 .* time_d_avg_1;
 end
 
-Power_avg_time_1_1 = sum(Power_avg_time_m_1.') * 10^(-6) ./ 50 * 10 * 10^6; %P_{avg} with jitter
-Power_avg_time_1_2 = sum(Power_avg_time_m_1_2.') * 10^(-6) ./ 50 * 10 * 10^6; %P{avg} without jitter
+Power_avg_time_1_1 = sum(Power_avg_time_m_1.') * 10^(-6) * 10^(-9) ./ (2 * 50) * 500 * 10^3; %P_{avg} with jitter
+Power_avg_time_1_2 = sum(Power_avg_time_m_1_2.') * 10^(-6) * 10^(-9) ./ (2 * 50) * 500 * 10^3; %P{avg} without jitter
 
 
 Power_avg_time_m_2 = zeros(1, N2);
@@ -149,8 +149,8 @@ for n = 1:N2-1
     Power_avg_time_m_2_2(n) = signal_2(n).^2 .* time_d_avg_2;
 end
 
-Power_avg_time_2_1 = sum(Power_avg_time_m_2.') * 10^(-6) ./ 50 * 10 * 10^6; %P_{avg} with jitter
-Power_avg_time_2_2 = sum(Power_avg_time_m_2_2.') * 10^(-6) ./ 50 * 10 * 10^6; %P{avg} without jitter
+Power_avg_time_2_1 = sum(Power_avg_time_m_2.') * 10^(-6) * 10^(-9) ./ ( 2 * 50) * 500 * 10^3; %P_{avg} with jitter
+Power_avg_time_2_2 = sum(Power_avg_time_m_2_2.') * 10^(-6) * 10^(-9) ./ (2 * 50) * 500 * 10^3; %P{avg} without jitter
 
 % figure(5);
 % 
